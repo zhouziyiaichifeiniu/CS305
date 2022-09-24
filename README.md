@@ -48,3 +48,32 @@ traceroute
 #### 1.4.4 计算机网络中的吞吐量
 
 throughput吞吐量   bottleneck link瓶颈链路
+
+### 1.5 协议层次及其服务模型
+
+#### 1.5.1 分层的体系结构
+
+1. 协议分层layer 
+
+协议栈protocol stack
+
+物理层、链路层、网络层、运输层、应用层
+
+报文message  报文段segment  数据报datagram  帧frame  
+
+osi模型
+
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+
+#### 1.5.2 封装
+
+应用层报文段application-layer message -> 运输层报文段transport-layer segment -> 网络层数据报network-layer datagram -> 链路层帧link-layer frame -> 
+
+一个分组具有两种类型的字段：首部字段和有效载荷字段payload field
+
+### 1.6 面对攻击的网络
+
+恶意软件malware  僵尸网络botnet  拒绝服务攻击 denial-of-service
+
+### 1.7 计算机网络和因特网的历史
+
