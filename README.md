@@ -150,3 +150,44 @@ secure sockets layer ssl 安全套接字层
 #### 2.1.6 本书涉及的网络应用
 
 web、 文件传输、电子邮件、目录服务、流式视频、p2p
+
+### 2.2 Web 和 HTTP
+
+#### 2.2.1 http概述
+
+http是无状态协议stateless protocol
+
+#### 2.2.2 非持续连接和持续连接
+
+non-persistent connection
+
+所需时间： 2n、n+1
+
+往返时间round-trip-time（rtt）
+
+#### 2.2.3 http报文格式
+
+request line请求行：方法字段、url字段、http版本字段
+
+header line首部行：host、connection、user-agent、
+
+
+
+status line状态行：协议版本字段、状态码、状态信息
+
+header line首部行：connection、date、server、……
+
+entity body实体体：包含请求的对象本身
+
+#### 2.2.4 用户与服务器的交互：cookie
+
+..
+
+#### 2.2.5 web缓存
+
+web cache web缓存器   proxy server代理服务器
+
+#### 2.2.6 条件get方法  conditional GET
+
+
+
