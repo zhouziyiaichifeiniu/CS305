@@ -236,3 +236,32 @@ smtp要求每个报文采用7比特ascii码
 3.基于web的电子邮件
 
 用户代理=普通浏览器		用户和远程邮箱之间的通信基于http
+
+### 2.4 DNS:因特网的目录服务
+
+主机名hostname www.facebook.com  ip地址127.0.0.1
+
+#### 2.4.1 DNS提供的服务
+
+域名系统domain name system ： 主机名到ip地址转换的目录服务
+
+dns：一个由分层的dns服务器实现的分布式数据库；一个使得主机能够查询分布式数据库的应用层协议
+
+主机别名host aliasing、规范主机名canonical hostname、邮件服务器别名mail server aliasing、负载分配load distribution
+
+#### 2.4.2 DNS工作机理概述
+
+集中式设计的问题：单点故障a single point of failure、通信容量traffic volume、远距离的集中式数据库distant centralized database、维护maintenance
+
+
+
+1.分布式、层次数据库
+
+根dns服务器、顶级域（top-level domain） dns服务器、权威dns服务器、本地dns服务器
+
+递归查询、迭代查询
+
+2.dns缓存
+
+#### 2.4.3 DNS记录和报文
+
