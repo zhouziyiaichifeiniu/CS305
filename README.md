@@ -189,5 +189,50 @@ web cache web缓存器   proxy server代理服务器
 
 #### 2.2.6 条件get方法  conditional GET
 
+### 2.3 因特网中的电子邮件
 
+用户代理user agent 邮件服务器mail server 简单邮件传输协议simple mail transfer protocol
 
+#### 2.3.1 SMTP
+
+smtp握手的阶段，SMTP客户指示发送方的邮件地址和接收方的邮件地址。之后，客户发送报文（TCP）
+
+SMTP使用的是持久连接
+
+#### 2.3.2 与HTTP的对比
+
+1.
+
+HTTP：拉协议扑pull protorol 用户使用http从服务器拉取这些信息
+
+smtp：推协议push protocol 发送邮件服务器把文件推向接收邮件服务器
+
+2.
+
+smtp要求每个报文采用7比特ascii码
+
+3.   如何处理一个既包含文本又包含图形的文档？ http把每个对象封装到她自己的http响应报文，smtp把所有报文对象放在一个报文之中
+
+#### 2.3.3 邮件报文格式
+
+#### 2.3.4 邮件访问协议mail access protocol
+
+取报文是一个拉操作，需要post office protocol-version3 pop3 或者internet mail access protocol imap或者http
+
+1.POP3
+
+建立tcp连接 -> 特许authorization -> 事务处理 -> 更新
+
+特许：用户发送用户名和口令
+
+事务处理：用户代理取回报文，同时用户代理可以对报文进行删除等操作
+
+更新：客户发出quit命令，服务器删除被标记为删除的报文
+
+2.IMAP
+
+在服务器创建文件夹
+
+3.基于web的电子邮件
+
+用户代理=普通浏览器		用户和远程邮箱之间的通信基于http
