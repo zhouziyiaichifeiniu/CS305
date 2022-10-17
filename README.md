@@ -265,3 +265,38 @@ dns：一个由分层的dns服务器实现的分布式数据库；一个使得�
 
 #### 2.4.3 DNS记录和报文
 
+所有dns服务器都存储了资源记录resource record（rr）
+
+rr提供了主机名到ip地址的映射。
+
+rr：（Name，Value，Type，TTL）
+
+type = A： name是主机名，value是对应的ip地址
+
+type = NS： name是个域（foo.com），value是获得该域中主机ip地址的权威nds服务器的主机名
+
+type = CNAME： name是主机名 value是其规范主机名
+
+type = MX： name是邮件服务器的别名 value是其规范主机名
+
+1. DNS报文
+
+![img](http://c.biancheng.net/uploads/allimg/191111/6-1911111G20QV.gif)
+
+2.在DNS数据库中插入记录
+
+### 2.5 P2P文件分发
+
+1.p2p体系结构的扩展性
+
+分发时间distribution time
+
+p2p的时间有一个upper bound，c-s的时间线性增长
+
+2.BitTorrent
+
+洪流torrent 文件块chunk 追踪器tracker 最稀缺优先rarest first 疏通unchoked
+
+接收：针对自己没有的块，在邻居中决定最稀缺的块（数量最少）
+
+响应： 对换算法。根据当前能够以最高速率向他提供数据的邻居，给出优先权。
