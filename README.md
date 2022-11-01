@@ -758,3 +758,24 @@ UDP首部有四个字段，每个字段由两个字节组成
 
 检验和用于确定当UDP报文段从源到达目的地移动时，其中的比特是否发生了改变
 
+### 3.4 可靠数据传输原理
+
+可靠数据传输协议reliable data transfer protocol
+
+单向数据传输unidirectional data transfer
+
+#### 3.4.1 构造可靠数据传输协议
+
+1. 经完全可靠信道的可靠数据传输：rdt1.0
+
+发送端通过rdt_send接收高层的数据，产生一个该数据的分组发送到信道中
+
+接收端通过rdt_rcv从底层信道接收一个分组
+
+2. 经具有比特差错信道的可靠数据传输：rdt2.0
+
+比特可能受损的模型
+
+肯定确定positive acknowledgement 否定确认negative acknowledgement 自动重传请求协议automatic repeat request
+
+差错检测、接收方的ack和nak、重传
