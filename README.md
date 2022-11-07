@@ -756,6 +756,8 @@ UDP首部有四个字段，每个字段由两个字节组成
 
 #### 3.3.2 UDP检验和
 
+checksum的计算：所有比特相加，溢出位与最低比特位相加，再取反获得checksum
+
 检验和用于确定当UDP报文段从源到达目的地移动时，其中的比特是否发生了改变
 
 ### 3.4 可靠数据传输原理
@@ -768,14 +770,49 @@ UDP首部有四个字段，每个字段由两个字节组成
 
 1. 经完全可靠信道的可靠数据传输：rdt1.0
 
-发送端通过rdt_send接收高层的数据，产生一个该数据的分组发送到信道中
+rdt的发送端接收高层数据，产生分组，并将分组发送到信道中
 
-接收端通过rdt_rcv从底层信道接收一个分组
+rdt的接收端从底层接收分组，从分组中取出数据，将数据上传给较高层
 
-2. 经具有比特差错信道的可靠数据传输：rdt2.0
+2. 经具有比特差错bit errors信道的可靠数据传输：rdt2.0
 
-比特可能受损的模型
+自动重传请求automatic repeat request
 
-肯定确定positive acknowledgement 否定确认negative acknowledgement 自动重传请求协议automatic repeat request
+差错检测checksum：使接收方检测到何时出现了比特差错
 
-差错检测、接收方的ack和nak、重传
+接收方反馈：ACK和NAK
+
+重传：接收方收到差错分组时返回NAK，发送方将重传该分组文
+
+rdt2.1、rdt2.2
+
+为了解决ack和nak受损到问题，在数据分组中添加新字段，让发送方对其数据分组编号。
+
+rdt2.2实现了无nak的可靠数据传输协议
+
+3. 经具有比特差错的丢包信道的可靠数据传输：rdt3.0
+
+两个问题：怎样检测丢包？丢包后该做什么？
+
+冗余数据分组duplicate data transfer  倒计时计数器countdown timer 比特交替协议alternating-bit protocol
+
+#### 3.4.2 流水线可靠数据传输协议
+
+利用率utilization 流水线pipelining
+
+流水线的要求：
+
+* 必须增加序号范围。
+* 协议的发送方和接收方两端需要缓存多个分组
+* 所需序号范围和对缓冲的要求取决于数据传输协议如何处理丢失、损坏及延时过大的分组
+
+#### 3.4.3 回退N步 Go-Back-N
+
+基序号base 下一个序号nextseqnum 窗口长度window size 滑动窗口协议sliding-window protocol
+
+GBN发送方必须响应三种类型的事件：
+
+* 上层的调用：检测窗口是否已满
+* 收到一个ack：对序号为n对分组的确认采取累计确认cumulative acknowledgement
+* 超时事件：定时器将用于恢复数据或确认分组的丢失
+
