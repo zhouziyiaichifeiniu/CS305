@@ -852,3 +852,78 @@ selective repeat：发送方仅重传哪些在接收方出错的分组
 4. 确认：接收方回复分组被正确的接受到了
 5. 否定确认：接收方告诉发送方分组未被正确接收
 6. 窗口、流水线： 发送方被限制只发送那些序号落在指定范围内的分组。
+
+### 3.5 面向连接的运输：TCP
+
+#### 3.5.1 TCP连接
+
+面向连接的connection-oriented 点到点point-to-point 三次握手three-way handshake 最大报文段长度maximum segment size
+
+#### 3.5.2 TCP报文段结构
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/bdad0ba97b114354bcc553832011f43c.png)
+
+序号字段sequence number field、确认号字段acknowledgement number field
+
+接收窗口字段receive window field：用于流量控制
+
+标志字段：ack、syn、fin：连接建立和拆除  
+
+1. 序号和确认号
+
+序号是报文段首字节在字节流中的编号
+
+主机a填充进报文段的确认号是主机a期望从主机b收到的下一子节的序号
+
+2. 序号和确认号的案例
+
+c -> s : seq = 42 ack = 79 data = 'c'
+
+s -> c : seq = 79 ack = 43 data = 'c'
+
+c -> s : seq = 43 ack = 80
+
+#### 3.5.3 往返事件的估计与超时
+
+1. 估计往返时间
+
+t = 0.125* 过去计算的时间 + 0.875 * 刚刚计算的时间
+
+rtt的偏差：devrtt 是预测值和过去值的差值
+
+2. 设置和管理重传超时间隔
+
+Timeout = estimatertt + 4 * devrtt
+
+#### 3.5.4 可靠数据传输
+
+tcp每次重传都会将下一次的超时间隔设为先前值的两倍：这种修改提供了一个形式受限的拥塞控制
+
+发送方如果收到三个冗余ack，就执行快速重传fast retransmit
+
+#### 3.5.5 流量控制
+
+tcp通过让发送方维护一个成为接受窗口receive window的变量来提供流量控制
+
+RcvBuffer >= LastByteRcvd - LastByteRead
+
+rwnd = RcvBuffer - [LastByteRcvd - LastByteRead]
+
+tcp规范中要求：当主机B的接收窗口为0时，主机A继续发送只有一个字节数据的报文段。
+
+#### 3.5.6 TCP连接管理
+
+连接：
+
+1. 报文段首部的SYN被置为1，同时会随机选择一个初始序号**client_isn**并放置到序号字段
+2. 服务器提取syn报文段，向用户发送允许连接的报文段。 syn被置为1，确认号字段被置为 **client_isn + 1 **。最后，选择自己的初始序号**server_isn**，放置到序号字段
+3. 客户端将确认字段置为**server_isn+1** ，syn被置为0
+
+关闭：
+
+1. 客户端在其报文段的FIN置为1，服务器接收到该报文后，会发送一个确认报文段
+2. 服务器在其报文段的FIN置为1，客户也会发送一个确认报文段
+
+
+
+tcp state
