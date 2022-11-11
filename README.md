@@ -956,3 +956,48 @@ tcp报文段的丢失被认为是网络拥塞的一个迹象，tcp会相应的�
 
 在available bite rate中，路由器通知发送方他能在输出链路上支持的最大主机发送速率
 
+
+
+### 3.7 TCP拥塞控制
+
+tcp使用端到端的拥塞控制，因为ip曾不向端系统提供显式的网络拥塞反馈
+
+运行在发送方的tcp拥塞控制机制跟踪一个额外的变量：拥塞窗口congestion window
+
+发送方的发送速率是 cwnd/RTT 字节/秒
+
+“丢包事件”：出现超时或收到接收方的三个冗余ack
+
+#### 指导性原则
+
+* 一个丢失的报文段意味着阻塞，因此当丢失报文段是应当降低TCP发送方的速率
+* 一个确认报文段指示该网络正在向接收方交付发送方的报文段，此时能够增加发送方的速率
+* 带宽探测
+
+
+
+TCP拥塞控制算法 TCP congestion control algorithm
+
+1. 慢启动SS 2. 拥塞避免 3. 快速恢复
+
+**慢启动**： cwnd的值以一个MSS开始，每个传输的报文段首次被确认就增加1。 如果存在一个超时丢包，发送方将cwnd设置为1并重新开始SS，同时将ssthresh（慢启动阈值）设为cwnd / 2。当cwnd = ssthresh时，结束慢启动进入拥塞避免。当检测到三个冗余ack，结束慢启动，进入快速恢复状态
+
+**拥塞避免**：每个RTT只将cwnd的值增加一个MSS。三个冗余ack出现时，cwnd减半，+3，进入快速恢复阶段
+
+**快速恢复**
+
+加性增、乘性减additive-increase multiplicative-decrease AIMD
+
+#### TCP吞吐量的宏观描述
+
+TCP发送数据的速率是拥塞窗口与当前RTT的函数。  窗口长度w字节，往返时间RTT： w/RTT
+
+丢包发生时，W代表w的值，则吞吐量在W/RTT和W/2*RTT变化
+
+平均吞吐量：3W/4*RTT
+
+#### 经高带宽路径的TCP
+
+1. 公平性
+2. 明确拥塞通告explicit congestion notification
+
