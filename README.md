@@ -696,3 +696,42 @@ TCP发送数据的速率是拥塞窗口与当前RTT的函数。  窗口长度w�
 有些情况，在缓存填满之前便丢弃一个分组：主动队列管理Active Queue Management
 
 #### 4.2.5 分组调度
+
+## 第五章 网络层：控制平面
+
+### 5.1 概述
+
+* 每路由器控制：每个路由器有一个路由选择组件，与其他路由器中的路由选择组件通信
+* 逻辑集中式控制
+
+### 5.2 路由选择算法
+
+routing algorithm  最低开销路径least-cost path
+
+* 集中式路由选择算法centralized routing algorithm：具有全局状态信息的算法被称作链路状态算法link state
+* 分散式路由选择算法decentralized routing algorithm：距离向量算法distance-vector
+
+静态路由选择算法static 动态路由选择算法dynamic
+
+负载敏感算法load-sensitive 负载迟钝load-insensitive
+
+#### 5.2.1 链路状态路由选择算法
+
+每一轮迭代，可以获得一个点的最小值
+
+迪杰斯特拉算法
+
+#### 5.2.2 距离向量路由选择算法
+
+x -> y :  d = min{c(x,v) + dv(y)}
+
+### 5.3 因特网中自治系统内部的路由选择：OSPF
+
+自治系统autonomous system
+
+开放最短路优先
+
+每台路由器在本地运行dijkstra算法，确定以自身为根节点到所有子网的最短路径树
+
+
+
